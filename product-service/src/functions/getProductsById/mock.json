@@ -1,0 +1,8 @@
+{
+  "routeKey": "GET /products/{productId}",
+  "rawPath": "/products/10",
+  "rawQueryString": "",
+  "pathParameters": {
+    "productId": "10"
+  }
+}

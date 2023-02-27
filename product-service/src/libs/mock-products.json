@@ -1,0 +1,182 @@
+[
+    {
+        "id": 1,
+        "title": "To Kill a Mockingbird",
+        "author": "Harper Lee",
+        "publisher": "J. B. Lippincott & Co.",
+        "publicationDate": "1960-07-11",
+        "description": "To Kill a Mockingbird is a novel by Harper Lee published in 1960. It is set in the Deep South and explores themes of racial injustice and the loss of innocence. The story follows young Scout Finch and her brother Jem as they grow up in a small Alabama town and witness the trial of a black man falsely accused of raping a white woman.",
+        "price": 10
+    },
+    {
+        "id": 2,
+        "title": "1984",
+        "author": "George Orwell",
+        "publisher": "Secker & Warburg",
+        "publicationDate": "1949-06-08",
+        "description": "1984 is a dystopian novel by George Orwell published in 1949. It is set in a future totalitarian society where individualism is suppressed and the government controls every aspect of life. The story follows Winston Smith as he rebels against the Party and falls in love with Julia, leading to his eventual capture and brainwashing.",
+        "price": 10
+    },
+    {
+        "id": 3,
+        "title": "The Great Gatsby",
+        "author": "F. Scott Fitzgerald",
+        "publisher": "Charles Scribner's Sons",
+        "publicationDate": "1925-04-10",
+        "description": "The Great Gatsby is a novel by F. Scott Fitzgerald published in 1925. It is set in the Roaring Twenties and explores themes of wealth, love, and the American Dream. The story follows Jay Gatsby as he tries to win back his former lover, Daisy Buchanan, and navigate the corrupt social scene of Long Island's elite.",
+        "price": 15
+    },
+    {
+        "id": 4,
+        "title": "Pride and Prejudice",
+        "author": "Jane Austen",
+        "publisher": "T. Egerton, Whitehall",
+        "publicationDate": "1813-01-28",
+        "description": "Pride and Prejudice is a novel by Jane Austen published in 1813. It is set in rural England and explores themes of social class, marriage, and love. The story follows Elizabeth Bennet as she navigates the relationships and societal expectations of her family and peers, eventually falling in love with the wealthy Mr. Darcy.",
+        "price": 20
+    },
+    {
+        "id": 5,
+        "title": "The Hobbit",
+        "author": "J.R.R. Tolkien",
+        "publisher": "George Allen & Unwin",
+        "publicationDate": "1937-09-21",
+        "description": "The Hobbit is a fantasy novel by J.R.R. Tolkien published in 1937. It is set in Middle-earth and follows the hobbit Bilbo Baggins as he embarks on a quest to reclaim the treasure of the dragon Smaug, along with a group of dwarves and the wizard Gandalf. The story is a prequel to Tolkien's later work, The Lord of the Rings.",
+        "price": 10
+    },
+    {
+        "id": 6,
+        "title": "The Catcher in the Rye",
+        "author": "J.D. Salinger",
+        "publisher": "Little, Brown and Company",
+        "publicationDate": "1951-07-16",
+        "description": "The Catcher in the Rye is a novel by J.D. Salingerpublished in 1951. It is a coming-of-age story that explores themes of alienation, loss, and identity. The story follows Holden Caulfield, a teenage boy who has been expelled from his prep school, as he wanders around New York City and grapples with his disillusionment with the adult world.",
+        "price": 8
+    },
+    {
+        "id": 7,
+        "title": "The Lord of the Rings",
+        "author": "J.R.R. Tolkien",
+        "publisher": "George Allen & Unwin",
+        "publicationDate": "1954-1955",
+        "description": "The Lord of the Rings is a high fantasy novel by J.R.R. Tolkien published in three volumes between 1954 and 1955. It is set in Middle-earth and follows the hobbit Frodo Baggins as he tries to destroy the One Ring, a powerful artifact created by the dark lord Sauron. Along with his friends and companions, Frodo travels through dangerous lands and battles enemies to reach his goal.",
+        "price": 30
+    },
+    {
+        "id": 8,
+        "title": "Harry Potter and the Philosopher's Stone",
+        "author": "J.K. Rowling",
+        "publisher": "Bloomsbury",
+        "publicationDate": "1997-06-26",
+        "description": "Harry Potter and the Philosopher's Stone is a fantasy novel by J.K. Rowling published in 1997. It is the first book in the Harry Potter series and follows the young wizard Harry Potter as he discovers his magical heritage and attends Hogwarts School of Witchcraft and Wizardry. Along with his friends Ron Weasley and Hermione Granger, Harry must battle the evil Lord Voldemort and protect the wizarding world from his influence.",
+        "price": 10
+    },
+    {
+        "id": 9,
+        "title": "The Da Vinci Code",
+        "author": "Dan Brown",
+        "publisher": "Doubleday",
+        "publicationDate": "2003-03-18",
+        "description": "The Da Vinci Code is a thriller novel by Dan Brown published in 2003. It centers around a conspiracy theory involving the Holy Grail and the relationship between Jesus Christ and Mary Magdalene. The story follows Harvard symbologist Robert Langdon as he tries to unravel the mystery and avoid dangerous opponents.",
+        "price": 15
+    },
+    {
+        "id": 10,
+        "title": "The Hunger Games",
+        "author": "Suzanne Collins",
+        "publisher": "Scholastic",
+        "publicationDate": "2008-09-14",
+        "description": "The Hunger Games is a dystopian novel by Suzanne Collins published in 2008. It is set in a future North America where a wealthy Capitol controls 12 impoverished districts by forcing them to send two tributes to compete in the annual Hunger Games, a televised fight to the death. The story follows Katniss Everdeen as she volunteers to take her sister's place and becomes a symbol of resistance against the Capitol.",
+        "price": 8
+    },
+    {
+        "id": 11,
+        "title": "The Fault in Our Stars",
+        "author": "John Green",
+        "publisher": "Dutton Books",
+        "publicationDate": "2012-01-10",
+        "description": "The Fault in Our Stars is a young adult novel by John Green published in 2012. It is a romance story that explores themes of mortality, love, and hope. The story follows Hazel Grace Lancaster, a teenage girl with terminal cancer, as she falls in love with Augustus Waters, another cancer patient, and embarks on a journey to find the author of her favorite book.",
+        "price": 10
+    },
+    {
+        "id": 12,
+        "title": "The Alchemist",
+        "author": "Paulo Coelho",
+        "publisher": "HarperCollins",
+        "publicationDate": "1988-01-01",
+        "description": "The Alchemist is a novel by Paulo Coelho published in 1988. It tells the story of Santiago, an Andalusian shepherd boy who dreams of traveling the world in search of a treasure hidden in the Egyptian pyramids. Along the way, he meets a series of characters who teach him important life lessons and help him discover his true destiny. The novel explores themes of destiny, personal legend, and the power of the universe to guide our lives.",
+        "price": 25
+    },
+    {
+        "id": 13,
+        "title": "The Unknown Soldier",
+        "author": "Väinö Linna",
+        "publisher": "Werner Söderström Osakeyhtiö",
+        "publicationDate": "1954-01-01",
+        "description": "The Unknown Soldier is a novel by Finnish author Väinö Linna published in 1954. It tells the story of a group of Finnish soldiers fighting in the Continuation War against the Soviet Union. The novel explores themes of patriotism, heroism, and the devastating impact of war on individual lives. It is known for its gritty realism, vivid characters, and powerful portrayal of the Finnish war effort.",
+        "price": 15
+    },
+    {
+        "id": 14,
+        "title": "The Girl with the Dragon Tattoo",
+        "author": "Stieg Larsson",
+        "publisher": "Norstedts Förlag",
+        "publicationDate": "2005-08-01",
+        "description": "The Girl with the Dragon Tattoo is a crime novel by Swedish author Stieg Larsson, published posthumously in 2005. It is the first book in the Millennium series and follows the story of Mikael Blomkvist, a journalist who is hired to investigate the disappearance of a wealthy family's daughter. Along the way, he teams up with Lisbeth Salander, a young computer hacker with a troubled past. The novel explores themes of violence against women, corporate corruption, and the abuse of power.",
+        "price": 10
+    },
+    {
+        "id": 15,
+        "title": "Crime and Punishment",
+        "author": "Fyodor Dostoevsky",
+        "publisher": "The Russian Messenger",
+        "publicationDate": "1866-01-01",
+        "description": "Crime and Punishment is a novel by Fyodor Dostoevsky published in 1866. It tells the story of Rodion Raskolnikov, a poor ex-student in St. Petersburg who murders an old pawnbroker and her sister for money. The novel explores themes of morality, redemption, and the psychology of guilt and features some of the most memorable characters in Russian literature.",
+        "price": 20
+    },
+    {
+        "id": 16,
+        "title": "Anna Karenina",
+        "author": "Leo Tolstoy",
+        "publisher": "The Russian Messenger",
+        "publicationDate": "1877-01-01",
+        "description": "Anna Karenina is a novel by Leo Tolstoy published in 1877. It tells the story of the aristocratic Anna Karenina who becomes involved in a scandalous affair with Count Vronsky. The novel explores themes of love, marriage, family, and the struggle between personal desire and societal expectations. It is known for its sweeping narrative, rich characterizations, and masterful portrayal of Russian society.",
+        "price": 15
+    },
+    {
+        "id": 17,
+        "title": "The Brothers Karamazov",
+        "author": "Fyodor Dostoevsky",
+        "publisher": "The Russian Messenger",
+        "publicationDate": "1880-01-01",
+        "description": "The Brothers Karamazov is a novel by Fyodor Dostoevsky published in 1880. It tells the story of the Karamazov family, focusing particularly on the relationships between the three brothers Dmitry, Ivan, and Alyosha. The novel explores themes of morality, faith, free will, and the nature of human existence. It is known for its complex characters, intricate plot, and philosophical depth.",
+        "price": 20
+    },
+    {
+        "id": 18,
+        "title": "The Picture of Dorian Gray",
+        "author": "Oscar Wilde",
+        "publisher": "Lippincott's Monthly Magazine",
+        "publicationDate": "1890-06-20",
+        "description": "The Picture of Dorian Gray is a novel by Oscar Wilde published in 1890. It is a Gothic horror story that explores the themes of beauty, youth, and corruption. The story follows Dorian Gray, a young and handsome man who wishes to remain forever young and beautiful. His wish is granted, but at a terrible cost as his portrait, hidden in his attic, bears the marks of his moral decay and aging.",
+        "price": 15
+    },
+    {
+        "id": 19,
+        "title": "The Road",
+        "author": "Cormac McCarthy",
+        "publisher": "Alfred A. Knopf",
+        "publicationDate": "2006-09-26",
+        "description": "The Road is a post-apocalyptic novel by Cormac McCarthy published in 2006. It is set in a bleak and desolate world where a father and his young son struggle to survive and make their way to the coast. The novel explores themes of survival, love, and humanity in the face of extreme adversity.",
+        "price": 12
+    },
+    {
+        "id": 20,
+        "title": "Slaughterhouse-Five",
+        "author": "Kurt Vonnegut",
+        "publisher": "Delacorte Press",
+        "publicationDate": "1969-03-31",
+        "description": "Slaughterhouse-Five is a satirical novel by Kurt Vonnegut published in 1969. It is a semi-autobiographical story that explores the themes of war, trauma, and the human condition. The story follows the experiences of Billy Pilgrim, a soldier who becomes unstuck in time and travels back and forth through different moments in his life, including his time as a prisoner of war during the bombing of Dresden in World War II.",
+        "price": 8
+    }
+]
