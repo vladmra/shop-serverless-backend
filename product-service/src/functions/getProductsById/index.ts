@@ -31,6 +31,24 @@ export default {
                 "application/json": "getProductsByIdResponse",
               },
             },
+            {
+              statusCode: 404,
+              responseBody: {
+                description: "Not found error",
+              },
+              responseModels: {
+                "application/text": "notFoundErrorResponse",
+              },
+            },
+            {
+              statusCode: 500,
+              responseBody: {
+                description: "Internal error",
+              },
+              responseModels: {
+                "application/text": "internalErrorResponse",
+              },
+            },
           ],
         },
       },

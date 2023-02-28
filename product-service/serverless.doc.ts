@@ -40,22 +40,37 @@ const productListSchema = {
   uniqueItems: true,
 };
 
-// TODO: update response models with error responses
 const documentation = {
   version: "1",
   title: "My shop API",
   models: [
     {
       name: "getProductsListResponse",
-      description: "GET response model",
+      description: "Response model with a list of Products",
       contentType: "application/json",
       schema: productListSchema,
     },
     {
       name: "getProductsByIdResponse",
-      description: "GET response model",
+      description: "Response model with a single Product",
       contentType: "application/json",
       schema: productSchema,
+    },
+    {
+      name: "notFoundErrorResponse",
+      description: "Error response model",
+      contentType: "application/text",
+      schema: {
+        type: "string"
+      },
+    },
+    {
+      name: "internalErrorResponse",
+      description: "Error response model",
+      contentType: "application/text",
+      schema: {
+        type: "string"
+      },
     },
   ],
   servers: {

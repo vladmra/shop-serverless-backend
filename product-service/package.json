@@ -5,6 +5,7 @@
   "main": "serverless.ts",
   "scripts": {
     "test": "jest",
+    "docs": "npx open-swagger-ui ./openapi.json --open",
     "docs:generate": "serverless openapi generate -o openapi.json"
   },
   "engines": {

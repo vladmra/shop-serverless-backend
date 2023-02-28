@@ -1,6 +1,5 @@
 import { handlerPath } from "@libs/handler-resolver";
 
-// TODO: check if schema is correct?
 export default {
   handler: `${handlerPath(__dirname)}/handler.main`,
   events: [
@@ -20,6 +19,15 @@ export default {
               },
               responseModels: {
                 "application/json": "getProductsListResponse",
+              },
+            },
+            {
+              statusCode: 500,
+              responseBody: {
+                description: "Internal error",
+              },
+              responseModels: {
+                "application/text": "internalErrorResponse",
               },
             },
           ],

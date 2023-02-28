@@ -1,3 +1,3 @@
-// TODO: add readme
+# My shop serverless backend
 
-** Description ** 
+- [Product service](./product-service/README.md)

@@ -1,7 +1,5 @@
 import type { AWS } from "@serverless/typescript";
 
-// TODO: restrict other function methods
-// TODO: update README
 import getProductsList from "@functions/getProductsList";
 import getProductsById from "@functions/getProductsById";
 
@@ -11,6 +9,7 @@ const serverlessConfiguration: AWS = {
   service: "product-service",
   frameworkVersion: "3",
   plugins: ["serverless-esbuild", "serverless-openapi-documenter"],
+  useDotenv: true,
   provider: {
     name: "aws",
     runtime: "nodejs14.x",
@@ -25,9 +24,8 @@ const serverlessConfiguration: AWS = {
     },
     httpApi: {
       cors: {
-        // TODO: pass correct origin for the deployed client from env variable
         allowedOrigins: [
-          "https://d1ote0jlsfuczu.cloudfront.net",
+          "${env:CLOUDFRONT_ORIGIN}",
           "http://localhost:3000",
         ],
         allowedHeaders: ["Content-Type", "Authorization"],

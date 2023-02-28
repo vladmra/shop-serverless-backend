@@ -31,9 +31,16 @@
               "type": "number"
             }
           },
-          "required": ["id", "title", "price"]
+          "required": [
+            "id",
+            "title",
+            "price"
+          ]
         },
         "uniqueItems": true
+      },
+      "internalErrorResponse": {
+        "type": "string"
       },
       "productId": {
         "type": "string",
@@ -61,7 +68,14 @@
             "type": "number"
           }
         },
-        "required": ["id", "title", "price"]
+        "required": [
+          "id",
+          "title",
+          "price"
+        ]
+      },
+      "notFoundErrorResponse": {
+        "type": "string"
       }
     }
   },
@@ -72,7 +86,9 @@
         "description": "Returns an array containing all existing products.",
         "operationId": "product-service-dev-getProductsList",
         "parameters": [],
-        "tags": ["products"],
+        "tags": [
+          "products"
+        ],
         "responses": {
           "200": {
             "description": "An array of Product objects",
@@ -80,6 +96,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/getProductsListResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal error",
+            "content": {
+              "application/text": {
+                "schema": {
+                  "$ref": "#/components/schemas/internalErrorResponse"
                 }
               }
             }
@@ -103,7 +129,9 @@
             }
           }
         ],
-        "tags": ["products"],
+        "tags": [
+          "products"
+        ],
         "responses": {
           "200": {
             "description": "A Product objects",
@@ -111,6 +139,26 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/getProductsByIdResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found error",
+            "content": {
+              "application/text": {
+                "schema": {
+                  "$ref": "#/components/schemas/notFoundErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal error",
+            "content": {
+              "application/text": {
+                "schema": {
+                  "$ref": "#/components/schemas/internalErrorResponse"
                 }
               }
             }
