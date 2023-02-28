@@ -5,10 +5,12 @@ import type { AWS } from "@serverless/typescript";
 import getProductsList from "@functions/getProductsList";
 import getProductsById from "@functions/getProductsById";
 
+import documentation from './serverless.doc';
+
 const serverlessConfiguration: AWS = {
   service: "product-service",
   frameworkVersion: "3",
-  plugins: ["serverless-esbuild"],
+  plugins: ["serverless-esbuild", "serverless-openapi-documenter"],
   provider: {
     name: "aws",
     runtime: "nodejs14.x",
@@ -28,12 +30,9 @@ const serverlessConfiguration: AWS = {
           "https://d1ote0jlsfuczu.cloudfront.net",
           "http://localhost:3000",
         ],
-        allowedHeaders: [
-          "Content-Type",
-          "Authorization",
-        ],
-        allowedMethods: ['GET', 'POST'],
-        maxAge: 6000
+        allowedHeaders: ["Content-Type", "Authorization"],
+        allowedMethods: ["GET", "POST"],
+        maxAge: 6000,
       },
     },
   },
@@ -51,6 +50,7 @@ const serverlessConfiguration: AWS = {
       platform: "node",
       concurrency: 10,
     },
+    documentation
   },
 };
 
