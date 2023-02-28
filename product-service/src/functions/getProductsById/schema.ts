@@ -1,5 +1,5 @@
 export default {
   type: "null",
   properties: {},
-  required: []
+  required: [],
 } as const;

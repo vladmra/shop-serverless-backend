@@ -31,11 +31,7 @@
               "type": "number"
             }
           },
-          "required": [
-            "id",
-            "title",
-            "price"
-          ]
+          "required": ["id", "title", "price"]
         },
         "uniqueItems": true
       },
@@ -65,11 +61,7 @@
             "type": "number"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "price"
-        ]
+        "required": ["id", "title", "price"]
       }
     }
   },
@@ -80,9 +72,7 @@
         "description": "Returns an array containing all existing products.",
         "operationId": "product-service-dev-getProductsList",
         "parameters": [],
-        "tags": [
-          "products"
-        ],
+        "tags": ["products"],
         "responses": {
           "200": {
             "description": "An array of Product objects",
@@ -113,9 +103,7 @@
             }
           }
         ],
-        "tags": [
-          "products"
-        ],
+        "tags": ["products"],
         "responses": {
           "200": {
             "description": "A Product objects",

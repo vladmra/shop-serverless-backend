@@ -1,4 +1,4 @@
-import { handlerPath } from '@libs/handler-resolver';
+import { handlerPath } from "@libs/handler-resolver";
 
 // TODO: check if schema is correct?
 export default {
@@ -6,22 +6,24 @@ export default {
   events: [
     {
       httpApi: {
-        method: 'get',
-        path: '/products',
+        method: "get",
+        path: "/products",
         documentation: {
           summary: "Returns list of products",
           description: "Returns an array containing all existing products.",
           tags: ["products"],
-          methodResponses: [{
-            statusCode: 200,
-            responseBody: {
-              description: "An array of Product objects"
+          methodResponses: [
+            {
+              statusCode: 200,
+              responseBody: {
+                description: "An array of Product objects",
+              },
+              responseModels: {
+                "application/json": "getProductsListResponse",
+              },
             },
-            responseModels: {
-              "application/json": "getProductsListResponse"
-            }
-          }]
-        }
+          ],
+        },
       },
     },
   ],

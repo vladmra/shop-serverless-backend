@@ -1,32 +1,32 @@
 // TODO: update product model according to TS definition. Is there a way to get JSON model from type or interface?
 const productProps = {
-    type: "object",
-    properties: {
-      id: {
-        description: "The unique identifier for a product",
-        type: "integer",
-      },
-      title: {
-        description: "Name of the product",
-        type: "string",
-      },
-      description: {
-        description: "Description of the product",
-        type: "string",
-      },
-      price: {
-        description: "Price of the product",
-        type: "number",
-      },
+  type: "object",
+  properties: {
+    id: {
+      description: "The unique identifier for a product",
+      type: "integer",
     },
-    required: ["id", "title", "price"],  
+    title: {
+      description: "Name of the product",
+      type: "string",
+    },
+    description: {
+      description: "Description of the product",
+      type: "string",
+    },
+    price: {
+      description: "Price of the product",
+      type: "number",
+    },
+  },
+  required: ["id", "title", "price"],
 };
 const productSchema = {
   $schema: "https://json-schema.org/draft/2020-12/schema",
   $id: "https://example.com/product.schema.json",
   title: "Product",
   description: "An item from the shop",
-  ...productProps
+  ...productProps,
 };
 const productListSchema = {
   $schema: "https://json-schema.org/draft/2020-12/schema",
@@ -35,7 +35,7 @@ const productListSchema = {
   description: "A list of Products",
   type: "array",
   items: {
-    ...productProps
+    ...productProps,
   },
   uniqueItems: true,
 };

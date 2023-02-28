@@ -5,6 +5,7 @@ This project has been generated using the `aws-nodejs-typescript` template from 
 For detailed instructions, please refer to the [documentation](https://www.serverless.com/framework/docs/providers/aws/).
 
 ## OpenAPI documentation
+
 - `/openapi.json`, use SwaggerUI to open it
 - Run `npm run docs:generate` to update it
 

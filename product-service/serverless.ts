@@ -5,7 +5,7 @@ import type { AWS } from "@serverless/typescript";
 import getProductsList from "@functions/getProductsList";
 import getProductsById from "@functions/getProductsById";
 
-import documentation from './serverless.doc';
+import documentation from "./serverless.doc";
 
 const serverlessConfiguration: AWS = {
   service: "product-service",
@@ -50,7 +50,7 @@ const serverlessConfiguration: AWS = {
       platform: "node",
       concurrency: 10,
     },
-    documentation
+    documentation,
   },
 };
 
