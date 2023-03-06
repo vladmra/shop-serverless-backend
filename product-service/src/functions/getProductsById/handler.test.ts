@@ -5,6 +5,7 @@ import { defaultContext, defaultEvent } from "@libs/test-helpers";
 
 jest.mock("@libs/mock-data");
 
+// TODO: update unit tests
 describe("getProductsById function", () => {
   const mockData = [
     {

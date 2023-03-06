@@ -1,0 +1,49 @@
+{
+    "Description": "DB stack for My Shop app",
+    "Resources": {
+        "productTable": {
+            "Type": "AWS::DynamoDB::Table",
+            "Properties": {
+                "TableName": "products-table",
+                "AttributeDefinitions": [
+                    {
+                        "AttributeName": "id",
+                        "AttributeType": "S"
+                    }
+                ],
+                "KeySchema": [
+                    {
+                        "AttributeName": "id",
+                        "KeyType": "HASH"
+                    }
+                ],
+                "ProvisionedThroughput": {
+                    "ReadCapacityUnits": "5",
+                    "WriteCapacityUnits": "5"
+                }
+            }
+        },
+        "stocksTable": {
+            "Type": "AWS::DynamoDB::Table",
+            "Properties": {
+                "TableName": "stocks-table",
+                "AttributeDefinitions": [
+                    {
+                        "AttributeName": "productId",
+                        "AttributeType": "S"
+                    }
+                ],
+                "KeySchema": [
+                    {
+                        "AttributeName": "productId",
+                        "KeyType": "HASH"
+                    }
+                ],
+                "ProvisionedThroughput": {
+                    "ReadCapacityUnits": "5",
+                    "WriteCapacityUnits": "5"
+                }
+            }
+        }
+    }
+}

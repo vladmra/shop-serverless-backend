@@ -1,0 +1,12 @@
+{
+  "headers": {
+    "accept": "*/*",
+    "accept-encoding": "gzip, deflate, br",
+    "content-length": "231",
+    "content-type": "application/json"
+  },
+  "routeKey": "POST /products",
+  "rawPath": "/products",
+  "rawQueryString": "",
+  "body": "{\"title\":\"Test book\",\"description\":\"Mock data to test createProduct lambda\",\"author\":\"John Doe\",\"publisher\":\"Mock Publishing Ltd\",\"publicationDate\":\"2000-01-01\",\"count\":80085}"
+}

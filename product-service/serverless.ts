@@ -2,9 +2,11 @@ import type { AWS } from "@serverless/typescript";
 
 import getProductsList from "@functions/getProductsList";
 import getProductsById from "@functions/getProductsById";
+import createProduct from "@functions/createProduct";
 
 import documentation from "./serverless.doc";
 
+// TODO: update README with DB stack cloudformation description, scripts to upload test data
 const serverlessConfiguration: AWS = {
   service: "product-service",
   frameworkVersion: "3",
@@ -12,6 +14,7 @@ const serverlessConfiguration: AWS = {
   useDotenv: true,
   provider: {
     name: "aws",
+    deploymentMethod: "direct",
     runtime: "nodejs14.x",
     region: "eu-west-1",
     apiGateway: {
@@ -21,21 +24,42 @@ const serverlessConfiguration: AWS = {
     environment: {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: "1",
       NODE_OPTIONS: "--enable-source-maps --stack-trace-limit=1000",
+    
+      // TODO: where to get table name from? Maybe just add it to "custom" section and reference from there?
+      PRODUCTS_TABLE_NAME: 'products-table',
+      STOCKS_TABLE_NAME: 'stocks-table',
     },
     httpApi: {
       cors: {
-        allowedOrigins: [
-          "${env:CLOUDFRONT_ORIGIN}",
-          "http://localhost:3000",
-        ],
+        allowedOrigins: ["${env:CLOUDFRONT_ORIGIN}", "http://localhost:3000"],
         allowedHeaders: ["Content-Type", "Authorization"],
         allowedMethods: ["GET", "POST"],
         maxAge: 6000,
       },
     },
+    iam: {
+      role: {
+        statements: [
+          {
+            Effect: "Allow",
+            Action: [
+              "dynamodb:DescribeTable",
+              "dynamodb:Query",
+              "dynamodb:Scan",
+              "dynamodb:GetItem",
+              "dynamodb:BatchGetItem",
+              "dynamodb:PutItem",
+            ],
+            Resource: "arn:aws:dynamodb:${self:provider.region}:*:*"
+          }
+        ]
+      }
+    }
   },
-  // import the function via paths
-  functions: { getProductsList, getProductsById },
+  functions: { getProductsList, getProductsById, createProduct },
+  resources: {
+    Description: "Backend stack for My Shop app",
+  },
   package: { individually: true },
   custom: {
     esbuild: {

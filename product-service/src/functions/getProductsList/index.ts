@@ -1,6 +1,7 @@
 import { handlerPath } from "@libs/handler-resolver";
+import { DocumentedFunctionConfig } from "src/model/aws";
 
-export default {
+const functionConfig: DocumentedFunctionConfig = {
   handler: `${handlerPath(__dirname)}/handler.main`,
   events: [
     {
@@ -36,3 +37,5 @@ export default {
     },
   ],
 };
+
+export default functionConfig;
