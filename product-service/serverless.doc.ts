@@ -70,7 +70,6 @@ const productListSchema = {
   uniqueItems: true,
 };
 
-// TODO: add models for product creation request
 const documentation = {
   version: "1",
   title: "My shop API",

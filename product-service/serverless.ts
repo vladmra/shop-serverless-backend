@@ -6,7 +6,6 @@ import createProduct from "@functions/createProduct";
 
 import documentation from "./serverless.doc";
 
-// TODO: update README with DB stack cloudformation description, scripts to upload test data
 const serverlessConfiguration: AWS = {
   service: "product-service",
   frameworkVersion: "3",

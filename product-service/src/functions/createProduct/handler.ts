@@ -9,7 +9,7 @@ import {
   formatJSONResponse,
   ValidatedEventAPIGatewayProxyEvent,
 } from "@libs/api-gateway";
-import { BookRepository } from "@libs/BookRepository";
+import BookRepository from "@libs/BookRepository";
 import { eventLogger } from "@libs/event-logger.middleware";
 
 import schema from "./schema";

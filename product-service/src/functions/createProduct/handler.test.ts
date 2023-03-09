@@ -1,92 +1,83 @@
-// import { jest, describe, test, expect, afterEach } from "@jest/globals";
-// import { main } from "./handler";
-// import * as dataModule from "@libs/mock-data";
-// import { defaultContext, defaultEvent } from "@libs/test-helpers";
+import { jest, describe, test, expect, afterEach } from "@jest/globals";
+import { main } from "./handler";
+import { defaultContext, defaultEvent } from "@libs/test-helpers";
+import { BookStock } from "src/model/product";
 
-// jest.mock("@libs/mock-data");
+let mockMethod = jest.fn(() => Promise.resolve(mockData));
+const mockData: BookStock = {
+  id: "100",
+  title: "To Kill a Mockingbird",
+  author: "Harper Lee",
+  publisher: "J. B. Lippincott & Co.",
+  publicationDate: "1960-07-11",
+  description: "To Kill a Mockingbird is a novel...",
+  price: 10,
+  count: 1,
+};
+const validBody =
+  '{"title":"Test book","description":"Mock data to test createProduct lambda", "price": 100, "author":"John Doe","publisher":"Mock Publishing Ltd","publicationDate":"2000-01-01","count":80085}';
+const invalidBody =
+  '{"title":"Test book","description":"Mock data to test createProduct lambda", "author":"John Doe","publisher":"Mock Publishing Ltd","publicationDate":"2000-01-01","count":80085}';
 
-// TODO: add tests for new lambda
-// describe("getProductsById function", () => {
-//   const mockData = [
-//     {
-//       id: 100,
-//       title: "To Kill a Mockingbird",
-//       author: "Harper Lee",
-//       publisher: "J. B. Lippincott & Co.",
-//       publicationDate: "1960-07-11",
-//       description: "To Kill a Mockingbird is a novel...",
-//       price: 10,
-//     },
-//     {
-//       id: 101,
-//       title: "1984",
-//       author: "George Orwell",
-//       publisher: "Secker & Warburg",
-//       publicationDate: "1949-06-08",
-//       description: "1984 is a dystopian novel by George...",
-//       price: 10,
-//     },
-//   ];
+jest.mock("@libs/BookRepository", () => {
+  return function () {
+    return {
+      create: () => mockMethod(),
+    };
+  };
+});
 
-//   afterEach(() => {
-//     jest.restoreAllMocks();
-//   });
+describe("createProduct function", () => {
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
 
-//   test("should find product by given id", async () => {
-//     jest
-//       .spyOn(dataModule, "getMockProducts")
-//       .mockImplementation(() => Promise.resolve(mockData));
-//     const event = {
-//       ...defaultEvent,
-//       httpMethod: "GET",
-//       resource: "/products",
-//       path: "/products/{productId}",
-//       pathParameters: {
-//         productId: "101",
-//       },
-//     };
-//     const result = await main(event, defaultContext);
+  test("should create product and return it in successful response", async () => {
+    const event = {
+      ...defaultEvent,
+      body: JSON.parse(validBody),
+      rawBody: validBody,
+      httpMethod: "POST",
+      resource: "/products",
+      path: "/products",
+    };
+    const result = await main(event, defaultContext);
 
-//     expect(result.statusCode).toBe(200);
-//     expect(result.body).toEqual(JSON.stringify(mockData[1]));
-//   });
+    expect(result.statusCode).toBe(200);
+    expect(result.body).toEqual(JSON.stringify(mockData));
+  });
 
-//   test("should return 404 response if product could not be found", async () => {
-//     jest
-//       .spyOn(dataModule, "getMockProducts")
-//       .mockImplementation(() => Promise.resolve(mockData));
-//     const event = {
-//       ...defaultEvent,
-//       httpMethod: "GET",
-//       resource: "/products",
-//       path: "/products/{productId}",
-//       pathParameters: {
-//         productId: "200",
-//       },
-//     };
-//     const result = await main(event, defaultContext);
+  test("should return 400 response if request data is invalid", async () => {
+    const event = {
+      ...defaultEvent,
+      body: JSON.parse(invalidBody),
+      rawBody: invalidBody,
+      httpMethod: "POST",
+      resource: "/products",
+      path: "/products",
+    };
+    const result = await main(event, defaultContext);
 
-//     expect(result.statusCode).toBe(404);
-//     expect(result.body).toEqual("Product not found");
-//   });
+    expect(result.statusCode).toBe(400);
+    expect(result.body).toEqual("Event object failed validation");
+  });
 
-//   test("should return 500 response on internal errors", async () => {
-//     const errorMessage = "Test error";
-//     jest.spyOn(dataModule, "getMockProducts").mockImplementation(() => {
-//       throw new Error(errorMessage);
-//     });
-//     const event = {
-//       ...defaultEvent,
-//       httpMethod: "GET",
-//       resource: "/products",
-//       path: "/products/{productId}",
-//       pathParameters: {
-//         productId: "200",
-//       },
-//     };
-//     const result = await main(event, defaultContext);
+  test("should return 500 response on internal errors", async () => {
+    const errorMessage = "Test error";
+    mockMethod = jest.fn(() => {
+      throw new Error(errorMessage);
+    });
+    const event = {
+      ...defaultEvent,
+      body: JSON.parse(validBody),
+      rawBody: validBody,
+      httpMethod: "POST",
+      resource: "/products",
+      path: "/products",
+    };
+    const result = await main(event, defaultContext);
 
-//     expect(result.statusCode).toBe(500);
-//     expect(result.body).toEqual(`Internal error: Error: ${errorMessage}`);
-//   });
-// });
+    expect(result.statusCode).toBe(500);
+    expect(result.body).toEqual(`Internal error: Error: ${errorMessage}`);
+  });
+});

@@ -1,6 +1,6 @@
 import type { ValidatedEventAPIGatewayProxyEvent } from "@libs/api-gateway";
 import { formatJSONResponse } from "@libs/api-gateway";
-import { BookRepository } from "@libs/BookRepository";
+import BookRepository from "@libs/BookRepository";
 import { eventLogger } from "@libs/event-logger.middleware";
 import middy from "@middy/core";
 import httpErrorHandler from "@middy/http-error-handler";
