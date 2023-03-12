@@ -1,27 +1,24 @@
 {
-  "name": "product-service",
+  "name": "import-service",
   "version": "1.0.0",
   "description": "Serverless aws-nodejs-typescript template",
   "main": "serverless.ts",
   "scripts": {
-    "test": "jest",
-    "docs": "npx open-swagger-ui ./openapi.json --open",
-    "docs:generate": "serverless openapi generate -o openapi.json",
-    "uploadTestData": "npx ts-node ./src/libs/upload-data.ts ./src/libs/mock-products.json products-table stocks-table"
+    "test": "jest"
   },
   "engines": {
     "node": ">=14.15.0"
   },
   "dependencies": {
-    "@aws-sdk/client-dynamodb": "^3.284.0",
-    "@aws-sdk/lib-dynamodb": "^3.284.0",
+    "@aws-sdk/client-s3": "^3.289.0",
+    "@aws-sdk/s3-request-presigner": "^3.289.0",
     "@middy/core": "^3.4.0",
     "@middy/error-logger": "^4.2.6",
+    "@middy/http-cors": "^4.2.6",
     "@middy/http-error-handler": "^4.2.6",
     "@middy/http-json-body-parser": "^3.4.0",
-    "@middy/validator": "^4.2.6",
-    "http-errors": "^2.0.0",
-    "uuid": "^9.0.0"
+    "csv-parser": "^3.0.0",
+    "http-errors": "^2.0.0"
   },
   "devDependencies": {
     "@jest/globals": "^29.4.3",
@@ -33,7 +30,6 @@
     "json-schema-to-ts": "^1.5.0",
     "serverless": "^3.0.0",
     "serverless-esbuild": "^1.23.3",
-    "serverless-openapi-documenter": "^0.0.47",
     "ts-jest": "^29.0.5",
     "ts-node": "^10.4.0",
     "tsconfig-paths": "^3.9.0",

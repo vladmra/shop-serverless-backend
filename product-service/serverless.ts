@@ -16,6 +16,7 @@ const serverlessConfiguration: AWS = {
     deploymentMethod: "direct",
     runtime: "nodejs14.x",
     region: "eu-west-1",
+    stage: "dev",
     apiGateway: {
       minimumCompressionSize: 1024,
       shouldStartNameWithService: true,
@@ -23,10 +24,10 @@ const serverlessConfiguration: AWS = {
     environment: {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: "1",
       NODE_OPTIONS: "--enable-source-maps --stack-trace-limit=1000",
-    
-      // TODO: where to get table name from? Maybe just add it to "custom" section and reference from there?
-      PRODUCTS_TABLE_NAME: 'products-table',
-      STOCKS_TABLE_NAME: 'stocks-table',
+
+      REGION: "${self:provider.region}",
+      PRODUCTS_TABLE_NAME: "products-table",
+      STOCKS_TABLE_NAME: "stocks-table",
     },
     httpApi: {
       cors: {
@@ -49,15 +50,15 @@ const serverlessConfiguration: AWS = {
               "dynamodb:BatchGetItem",
               "dynamodb:PutItem",
             ],
-            Resource: "arn:aws:dynamodb:${self:provider.region}:*:*"
-          }
-        ]
-      }
-    }
+            Resource: "arn:aws:dynamodb:${self:provider.region}:*:*",
+          },
+        ],
+      },
+    },
   },
   functions: { getProductsList, getProductsById, createProduct },
   resources: {
-    Description: "Backend stack for My Shop app",
+    Description: "Product service stack for My Shop app",
   },
   package: { individually: true },
   custom: {
