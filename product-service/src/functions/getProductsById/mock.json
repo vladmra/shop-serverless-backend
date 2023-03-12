@@ -1,8 +1,8 @@
 {
   "routeKey": "GET /products/{productId}",
-  "rawPath": "/products/10",
+  "rawPath": "/products/c5c710dc-d9ec-46d0-9a6c-282c3e9edc83",
   "rawQueryString": "",
   "pathParameters": {
-    "productId": "10"
+    "productId": "c5c710dc-d9ec-46d0-9a6c-282c3e9edc83"
   }
 }

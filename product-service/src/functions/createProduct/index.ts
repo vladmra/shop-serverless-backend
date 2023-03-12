@@ -6,39 +6,35 @@ const functionConfig: DocumentedFunctionConfig = {
   events: [
     {
       httpApi: {
-        method: "get",
-        path: "/products/{productId}",
+        method: "POST",
+        path: "/products",
         documentation: {
-          summary: "Returns a product by Id",
-          description: "Returns a Product objecr by its Id.",
-          pathParams: [
-            {
-              name: "productId",
-              description: "Product Id",
-              schema: {
-                type: "string",
-                pattern: "^[0-9_]+$",
-              },
-            },
-          ],
+          summary: "Creates new product",
+          description: "Creates new product with (optiona) specified stock number",
           tags: ["products"],
+          requestBody: {
+            description: "Product and stock data"
+          },
+          requestModels: {
+            "application/json": "createProductRequest",
+          },
           methodResponses: [
             {
               statusCode: 200,
               responseBody: {
-                description: "A Product objects",
+                description: "A newly created Product object",
               },
               responseModels: {
-                "application/json": "getProductsByIdResponse",
+                "application/json": "createProductResponse",
               },
             },
             {
-              statusCode: 404,
+              statusCode: 400,
               responseBody: {
-                description: "Not found error",
+                description: "Bad request error",
               },
               responseModels: {
-                "application/text": "notFoundErrorResponse",
+                "application/text": "badRequestErrorResponse",
               },
             },
             {

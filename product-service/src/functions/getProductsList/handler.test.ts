@@ -1,40 +1,46 @@
 import { jest, describe, test, expect, afterEach } from "@jest/globals";
 import { main } from "./handler";
-import * as dataModule from "@libs/mock-data";
 import { defaultContext, defaultEvent } from "@libs/test-helpers";
+import { BookStock } from "src/model/product";
 
-jest.mock("@libs/mock-data");
+let mockMethod = jest.fn(() => Promise.resolve(mockData));
+const mockData: Array<BookStock> = [
+  {
+    id: "100",
+    title: "To Kill a Mockingbird",
+    author: "Harper Lee",
+    publisher: "J. B. Lippincott & Co.",
+    publicationDate: "1960-07-11",
+    description: "To Kill a Mockingbird is a novel...",
+    price: 10,
+    count: 1,
+  },
+  {
+    id: "200",
+    title: "1984",
+    author: "George Orwell",
+    publisher: "Secker & Warburg",
+    publicationDate: "1949-06-08",
+    description: "1984 is a dystopian novel by George...",
+    price: 10,
+    count: 2,
+  },
+];
+
+jest.mock("@libs/BookRepository", () => {
+  return function () {
+    return {
+      list: () => mockMethod(),
+    };
+  };
+});
 
 describe("getProductsList function", () => {
-  const mockData = [
-    {
-      id: 100,
-      title: "To Kill a Mockingbird",
-      author: "Harper Lee",
-      publisher: "J. B. Lippincott & Co.",
-      publicationDate: "1960-07-11",
-      description: "To Kill a Mockingbird is a novel...",
-      price: 10,
-    },
-    {
-      id: 101,
-      title: "1984",
-      author: "George Orwell",
-      publisher: "Secker & Warburg",
-      publicationDate: "1949-06-08",
-      description: "1984 is a dystopian novel by George...",
-      price: 10,
-    },
-  ];
-
   afterEach(() => {
     jest.restoreAllMocks();
   });
 
   test("should return a list of products", async () => {
-    jest
-      .spyOn(dataModule, "getMockProducts")
-      .mockImplementation(() => Promise.resolve(mockData));
     const event = {
       ...defaultEvent,
       httpMethod: "GET",
@@ -49,7 +55,7 @@ describe("getProductsList function", () => {
 
   test("should return 500 response on internal errors", async () => {
     const errorMessage = "Test error";
-    jest.spyOn(dataModule, "getMockProducts").mockImplementation(() => {
+    mockMethod = jest.fn(() => {
       throw new Error(errorMessage);
     });
     const event = {
