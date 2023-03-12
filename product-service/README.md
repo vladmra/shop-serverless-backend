@@ -1,4 +1,33 @@
-# Serverless - AWS Node.js Typescript
+# Product service
+
+## Functions
+- getProductsById
+- getProductsList
+
+## Swagger documentation
+
+- Run `npm run docs` to open Swagger UI
+- [openapi.json](./openapi.json) contains OpenAPI definition
+- Run `npm run docs:generate` to update it
+
+## Tests
+
+- Run `npm run test` to run unit tests with Jest
+
+## CORS settings
+
+By default, `allowedOrigins` contain `http://localhost:3000` for development purposes.
+
+To add to the list of allowed origins, define env variable `CLOUDFRONT_ORIGIN`. 
+
+E.g. create `.env` file in `./products-service` directory, with contents like
+```
+CLOUDFRONT_ORIGIN=https://exampleid.cloudfront.net
+```
+
+Value of `CLOUDFRONT_ORIGIN` env variable will be added to `allowedOrigins` header.
+
+## Serverless - AWS Node.js Typescript
 
 This project has been generated using the `aws-nodejs-typescript` template from the [Serverless framework](https://www.serverless.com/).
 

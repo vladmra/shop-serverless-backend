@@ -1,0 +1,181 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "My shop API",
+    "description": "",
+    "version": "1"
+  },
+  "components": {
+    "schemas": {
+      "getProductsListResponse": {
+        "title": "ProductList",
+        "description": "A list of Products",
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "description": "The unique identifier for a product",
+              "type": "integer"
+            },
+            "title": {
+              "description": "Name of the product",
+              "type": "string"
+            },
+            "description": {
+              "description": "Description of the product",
+              "type": "string"
+            },
+            "price": {
+              "description": "Price of the product",
+              "type": "number"
+            }
+          },
+          "required": [
+            "id",
+            "title",
+            "price"
+          ]
+        },
+        "uniqueItems": true
+      },
+      "internalErrorResponse": {
+        "type": "string"
+      },
+      "productId": {
+        "type": "string",
+        "pattern": "^[0-9_]+$"
+      },
+      "getProductsByIdResponse": {
+        "title": "Product",
+        "description": "An item from the shop",
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "The unique identifier for a product",
+            "type": "integer"
+          },
+          "title": {
+            "description": "Name of the product",
+            "type": "string"
+          },
+          "description": {
+            "description": "Description of the product",
+            "type": "string"
+          },
+          "price": {
+            "description": "Price of the product",
+            "type": "number"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "price"
+        ]
+      },
+      "notFoundErrorResponse": {
+        "type": "string"
+      }
+    }
+  },
+  "paths": {
+    "/products": {
+      "get": {
+        "summary": "Returns list of products",
+        "description": "Returns an array containing all existing products.",
+        "operationId": "product-service-dev-getProductsList",
+        "parameters": [],
+        "tags": [
+          "products"
+        ],
+        "responses": {
+          "200": {
+            "description": "An array of Product objects",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/getProductsListResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal error",
+            "content": {
+              "application/text": {
+                "schema": {
+                  "$ref": "#/components/schemas/internalErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products/{productId}": {
+      "get": {
+        "summary": "Returns a product by Id",
+        "description": "Returns a Product objecr by its Id.",
+        "operationId": "product-service-dev-getProductsById",
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "path",
+            "description": "Product Id",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/productId"
+            }
+          }
+        ],
+        "tags": [
+          "products"
+        ],
+        "responses": {
+          "200": {
+            "description": "A Product objects",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/getProductsByIdResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found error",
+            "content": {
+              "application/text": {
+                "schema": {
+                  "$ref": "#/components/schemas/notFoundErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal error",
+            "content": {
+              "application/text": {
+                "schema": {
+                  "$ref": "#/components/schemas/internalErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "https://example.com",
+      "description": "The server"
+    }
+  ],
+  "tags": [
+    {
+      "name": "products"
+    }
+  ]
+}
