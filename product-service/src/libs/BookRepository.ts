@@ -22,7 +22,9 @@ interface Repository<T, K> {
   delete(item: T): Promise<boolean>;
 }
 
-function attrValuesToProduct(dataFromAWS: Record<string, AttributeValue>): BookStock {
+function attrValuesToProduct(
+  dataFromAWS: Record<string, AttributeValue>
+): BookStock {
   return {
     id: dataFromAWS.id.S,
     title: dataFromAWS.title.S,
@@ -34,6 +36,8 @@ function attrValuesToProduct(dataFromAWS: Record<string, AttributeValue>): BookS
     count: 0,
   };
 }
+
+const MAX_BATCH_CREATE = 5;
 
 export default class BookRepository implements Repository<BookStock, string> {
   private dbClient: DynamoDBDocumentClient;
@@ -48,7 +52,7 @@ export default class BookRepository implements Repository<BookStock, string> {
 
   async list() {
     // TODO: handle pagination
-  
+
     // Get all product data from products table
     const scanParams: ScanCommandInput = {
       TableName: this.productsTableName,
@@ -143,27 +147,57 @@ export default class BookRepository implements Repository<BookStock, string> {
   }
 
   async create(payload: Omit<BookStock, "id">) {
-    const {
-      title,
-      description,
-      price,
-      author,
-      publisher,
-      publicationDate,
-      count,
-    } = payload;
-    const productData = {
-      title,
-      description,
-      price,
-      author,
-      publisher,
-      publicationDate,
-    };
-    const stockData = { count };
-    const productId = uuidv4();
-    const transactParams: TransactWriteItemsCommandInput = {
-      TransactItems: [
+    const result = await this.createBatch([payload]);
+    
+    if (result[0].status === 'fulfilled') {
+      return result[0].value.item;
+    }
+
+    throw new Error(result[0].reason);
+  }
+
+  async createBatch(payload: Array<Omit<BookStock, "id">>) {
+    // There should be some logic to handle batch creation better.
+    // Maybe something like batch write request for products and stocks with explicit validation that both
+    // have been created?
+    if (payload.length > MAX_BATCH_CREATE) {
+      return Promise.reject(
+        `Too many items to create, MAX_BATCH_CREATE=${MAX_BATCH_CREATE}`
+      );
+    }
+
+    // Collect transaction command inputs and new items to return, if transaction is successful
+    const transactPayloads: Array<{
+      commandInput: TransactWriteItemsCommandInput,
+      item: BookStock
+    }> = [];
+
+    payload.forEach((payloadItem) => {
+      const {
+        title,
+        description,
+        price,
+        author,
+        publisher,
+        publicationDate,
+        count,
+      } = payloadItem;
+      const productData = {
+        title,
+        description,
+        price,
+        author,
+        publisher,
+        publicationDate,
+      };
+      const stockData = { count };
+      const productId = uuidv4();
+      const newItem: BookStock = {
+        id: productId,
+        ...productData,
+        ...stockData,
+      };
+      transactPayloads.push({ commandInput: { TransactItems: [
         {
           Put: {
             TableName: this.productsTableName,
@@ -187,20 +221,22 @@ export default class BookRepository implements Repository<BookStock, string> {
             },
           },
         },
-      ],
-    };
+      ]}, item: newItem });
+    });
 
-    await this.dbClient.send(
-      new TransactWriteItemsCommand(transactParams)
+    // Execute all transaction requests
+    const transactionResults = transactPayloads.map((payload) =>
+      this.dbClient.send(
+        new TransactWriteItemsCommand(payload.commandInput)
+      ).then(response => { 
+        return {
+          response,
+          item: payload.item
+        }
+      })
     );
 
-    const createdItem: BookStock = {
-      id: productId,
-      ...productData,
-      ...stockData,
-    };
-
-    return createdItem;
+    return Promise.allSettled(transactionResults);
   }
 
   async update() {

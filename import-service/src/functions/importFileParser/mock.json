@@ -17,7 +17,7 @@
           "arn": "arn:aws:s3:::my-shop-file-import"
         },
         "object": {
-          "key": "uploaded/mock-products.csv",
+          "key": "uploaded-test/mock-products.csv",
           "size": 9709,
           "eTag": "27853b97a0f8ef64558887556ecaacc1",
           "sequencer": "00640DB92B11554273"

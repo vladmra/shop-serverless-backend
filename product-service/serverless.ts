@@ -3,6 +3,7 @@ import type { AWS } from "@serverless/typescript";
 import getProductsList from "@functions/getProductsList";
 import getProductsById from "@functions/getProductsById";
 import createProduct from "@functions/createProduct";
+import catalogBatchProcess from "@functions/catalogBatchProcess";
 
 import documentation from "./serverless.doc";
 
@@ -52,13 +53,77 @@ const serverlessConfiguration: AWS = {
             ],
             Resource: "arn:aws:dynamodb:${self:provider.region}:*:*",
           },
+          {
+            Effect: "Allow",
+            Action: ["sqs:ReceiveMessage", "sqs:DeleteMessage"],
+            Resource: { "Fn::GetAtt": ["catalogItemsQueue", "Arn"] },
+          },
+          {
+            Effect: "Allow",
+            Action: ["sns:Publish"],
+            Resource: { "Fn::GetAtt": ["createProductTopic", "TopicArn"] },
+          },
         ],
       },
     },
   },
-  functions: { getProductsList, getProductsById, createProduct },
+  functions: {
+    getProductsList,
+    getProductsById,
+    createProduct,
+    catalogBatchProcess,
+  },
   resources: {
     Description: "Product service stack for My Shop app",
+    Resources: {
+      catalogItemsQueue: {
+        Type: "AWS::SQS::Queue",
+        Properties: {
+          QueueName: "catalogItemsQueue",
+        },
+      },
+      createProductTopic: {
+        Type: "AWS::SNS::Topic",
+        Properties: {
+          TopicName: "createProductTopic",
+        },
+      },
+      createProductSubscription: {
+        Type: "AWS::SNS::Subscription",
+        Properties: {
+          Protocol: "email",
+          TopicArn: { Ref: "createProductTopic" },
+          Endpoint: "${env:SUBSCRIPTION_EMAIL}"
+        },
+      },
+      createProductSubscriptionSpecial: {
+        Type: "AWS::SNS::Subscription",
+        Properties: {
+          Protocol: "email",
+          TopicArn: { Ref: "createProductTopic" },
+          Endpoint: "${env:SUBSCRIPTION_EMAIL_SPECIAL}",
+          FilterPolicy: {
+            authors: ["J.R.R. Tolkien"]
+          }
+        },
+      }
+    },
+    Outputs: {
+      ImportProductsQueueURL: {
+        Description: "URL of the SQS queue to get import product data from",
+        Value: { Ref: "catalogItemsQueue" },
+        Export: {
+          Name: "ImportProductsQueueURL-${self:provider.stage}",
+        },
+      },
+      ImportProductsQueueArn: {
+        Description: "Arn of the SQS queue to get import product data from",
+        Value: { "Fn::GetAtt": ["catalogItemsQueue", "Arn"] },
+        Export: {
+          Name: "ImportProductsQueueArn-${self:provider.stage}",
+        },
+      },
+    },
   },
   package: { individually: true },
   custom: {
