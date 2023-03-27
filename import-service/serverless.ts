@@ -46,6 +46,19 @@ const serverlessConfiguration: AWS = {
   functions: { importProductsFile, importFileParser },
   resources: {
     Description: "Import service stack for My Shop app",
+    Resources: {
+      UnauthorizedAPIGatewayResponse: {
+        Type: "AWS::ApiGateway::GatewayResponse",
+        Properties: {
+          ResponseParameters: {
+            "gatewayresponse.header.Access-Control-Allow-Origin": "'*'",
+            "gatewayresponse.header.Access-Control-Allow-Headers": "'*'"
+          },
+          ResponseType: "DEFAULT_4XX",
+          RestApiId: { Ref: 'ApiGatewayRestApi'}
+        }
+      }
+    }
   },
   package: { individually: true },
   custom: {
