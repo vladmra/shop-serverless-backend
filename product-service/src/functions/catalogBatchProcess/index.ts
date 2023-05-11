@@ -6,15 +6,17 @@ const functionConfig: FunctionConfig = {
   events: [
     {
       sqs: {
-        arn: { 'Fn::GetAtt': ['catalogItemsQueue', 'Arn'] },
-        batchSize: 5
-      }
-    }
+        arn: { "Fn::GetAtt": ["catalogItemsQueue", "Arn"] },
+        batchSize: 5,
+      },
+    },
   ],
   environment: {
-    SQS_QUEUE_URL: { 'Fn::ImportValue': 'ImportProductsQueueURL-${self:provider.stage}' },
-    SNS_TOPIC_ARN: { "Fn::GetAtt": ["createProductTopic", "TopicArn"] }
-  }
+    SQS_QUEUE_URL: {
+      "Fn::ImportValue": "ImportProductsQueueURL-${self:provider.stage}",
+    },
+    SNS_TOPIC_ARN: { "Fn::GetAtt": ["createProductTopic", "TopicArn"] },
+  },
 };
 
 export default functionConfig;

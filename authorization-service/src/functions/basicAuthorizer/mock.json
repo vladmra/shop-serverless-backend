@@ -1,0 +1,5 @@
+{
+  "type": "TOKEN",
+  "authorizationToken": "Basic dmxhZG1yYTpURVNUX1BBU1NXT1JE",
+  "methodArn": "arn:aws:execute-api:us-east-1:123456789012:example/prod/POST/{proxy+}"
+}

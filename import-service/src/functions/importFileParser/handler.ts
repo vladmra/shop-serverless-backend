@@ -33,8 +33,6 @@ async function sendEventToSQS(eventBody: string) {
 
 const importFileParser = async (event: S3Event) => {
   try {
-    console.log(process.env.SQS_QUEUE_URL);
-
     const { bucket, object } = event.Records[0].s3;
     const getObjectCommand = new GetObjectCommand({
       Bucket: bucket.name,

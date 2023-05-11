@@ -8,14 +8,19 @@ const functionConfig: AWS["functions"]["string"] = {
       http: {
         method: "get",
         path: "import",
+        authorizer: {
+          arn: { "Fn::ImportValue": "BasicAuthorizerArn-${self:provider.stage}" },
+          name: "BasicAuthorizerArn-${self:provider.stage}",
+          type: 'token'
+        },
         request: {
           parameters: {
             querystrings: {
               name: {
-                required: true
-              }
-            }
-          }
+                required: true,
+              },
+            },
+          },
         },
         cors: {
           origins: ["${env:CLOUDFRONT_ORIGIN}", "http://localhost:3000"],
