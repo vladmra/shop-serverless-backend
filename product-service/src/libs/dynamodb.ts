@@ -1,8 +1,7 @@
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb";
 
-// TODO: pass region as parameter
-const ddbClient = new DynamoDBClient({ region: "eu-west-1" });
+const ddbClient = new DynamoDBClient({ region: process.env.REGION });
 
 const marshallOptions = {
   // Whether to automatically convert empty strings, blobs, and sets to `null`.
