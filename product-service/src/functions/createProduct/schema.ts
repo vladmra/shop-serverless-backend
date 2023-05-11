@@ -1,4 +1,7 @@
-export default {
+import Ajv from "ajv";
+import addFormats from "ajv-formats";
+
+const schema = {
   type: "object",
   properties: {
     title: {
@@ -35,3 +38,9 @@ export default {
   },
   required: ["title", "price", "author", "publisher", "publicationDate", "count"],
 } as const;
+
+const ajv = new Ajv();
+addFormats(ajv);
+export const validate = ajv.compile(schema);
+
+export default schema;

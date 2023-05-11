@@ -3,6 +3,9 @@ import { AWS } from "@serverless/typescript";
 
 const functionConfig: AWS["functions"]["string"] = {
   handler: `${handlerPath(__dirname)}/handler.main`,
+  environment: {
+    SQS_QUEUE_URL: { 'Fn::ImportValue': 'ImportProductsQueueURL-${self:provider.stage}' }
+  },
   events: [
     {
       s3: {
