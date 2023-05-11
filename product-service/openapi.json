@@ -28,13 +28,36 @@
             },
             "price": {
               "description": "Price of the product",
-              "type": "number"
+              "type": "number",
+              "minimum": 0,
+              "exclusiveMinimum": true
+            },
+            "author": {
+              "description": "Author",
+              "type": "string"
+            },
+            "publisher": {
+              "description": "Publisher",
+              "type": "string"
+            },
+            "publicationDate": {
+              "description": "Date of publiscation in the YYYY-MM-DD format",
+              "type": "string"
+            },
+            "count": {
+              "description": "Number of items in stock",
+              "type": "number",
+              "minimum": 0
             }
           },
           "required": [
             "id",
             "title",
-            "price"
+            "price",
+            "author",
+            "publisher",
+            "publicationDate",
+            "count"
           ]
         },
         "uniqueItems": true
@@ -65,16 +88,139 @@
           },
           "price": {
             "description": "Price of the product",
-            "type": "number"
+            "type": "number",
+            "minimum": 0,
+            "exclusiveMinimum": true
+          },
+          "author": {
+            "description": "Author",
+            "type": "string"
+          },
+          "publisher": {
+            "description": "Publisher",
+            "type": "string"
+          },
+          "publicationDate": {
+            "description": "Date of publiscation in the YYYY-MM-DD format",
+            "type": "string"
+          },
+          "count": {
+            "description": "Number of items in stock",
+            "type": "number",
+            "minimum": 0
           }
         },
         "required": [
           "id",
           "title",
-          "price"
+          "price",
+          "author",
+          "publisher",
+          "publicationDate",
+          "count"
         ]
       },
       "notFoundErrorResponse": {
+        "type": "string"
+      },
+      "createProductRequest": {
+        "title": "Data to create new Product",
+        "description": "Data to create new Product with stock info",
+        "type": "object",
+        "properties": {
+          "title": {
+            "description": "Name of the product",
+            "type": "string"
+          },
+          "description": {
+            "description": "Description of the product",
+            "type": "string"
+          },
+          "price": {
+            "description": "Price of the product",
+            "type": "number",
+            "minimum": 0
+          },
+          "author": {
+            "description": "Author",
+            "type": "string"
+          },
+          "publisher": {
+            "description": "Publisher",
+            "type": "string"
+          },
+          "publicationDate": {
+            "description": "Date of publiscation in the YYYY-MM-DD format",
+            "type": "string",
+            "format": "date"
+          },
+          "count": {
+            "description": "Number of items in stock",
+            "type": "number",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "title",
+          "price",
+          "author",
+          "publisher",
+          "publicationDate",
+          "count"
+        ]
+      },
+      "createProductResponse": {
+        "title": "Product",
+        "description": "An item from the shop",
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "The unique identifier for a product",
+            "type": "integer"
+          },
+          "title": {
+            "description": "Name of the product",
+            "type": "string"
+          },
+          "description": {
+            "description": "Description of the product",
+            "type": "string"
+          },
+          "price": {
+            "description": "Price of the product",
+            "type": "number",
+            "minimum": 0,
+            "exclusiveMinimum": true
+          },
+          "author": {
+            "description": "Author",
+            "type": "string"
+          },
+          "publisher": {
+            "description": "Publisher",
+            "type": "string"
+          },
+          "publicationDate": {
+            "description": "Date of publiscation in the YYYY-MM-DD format",
+            "type": "string"
+          },
+          "count": {
+            "description": "Number of items in stock",
+            "type": "number",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "price",
+          "author",
+          "publisher",
+          "publicationDate",
+          "count"
+        ]
+      },
+      "badRequestErrorResponse": {
         "type": "string"
       }
     }
@@ -96,6 +242,58 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/getProductsListResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal error",
+            "content": {
+              "application/text": {
+                "schema": {
+                  "$ref": "#/components/schemas/internalErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Creates new product",
+        "description": "Creates new product with (optiona) specified stock number",
+        "operationId": "product-service-dev-createProduct",
+        "parameters": [],
+        "tags": [
+          "products"
+        ],
+        "requestBody": {
+          "description": "Product and stock data",
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/createProductRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "A newly created Product object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/createProductResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request error",
+            "content": {
+              "application/text": {
+                "schema": {
+                  "$ref": "#/components/schemas/badRequestErrorResponse"
                 }
               }
             }

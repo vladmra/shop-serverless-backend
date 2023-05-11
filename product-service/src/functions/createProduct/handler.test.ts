@@ -1,6 +1,6 @@
 import { jest, describe, test, expect, afterEach } from "@jest/globals";
 import { main } from "./handler";
-import { defaultContext, defaultEvent, TestEvent } from "@libs/test-helpers";
+import { defaultContext, defaultEvent } from "@libs/test-helpers";
 import { BookStock } from "src/model/product";
 
 let mockMethod = jest.fn(() => Promise.resolve(mockData));
@@ -14,53 +14,52 @@ const mockData: BookStock = {
   price: 10,
   count: 1,
 };
+const validBody =
+  '{"title":"Test book","description":"Mock data to test createProduct lambda", "price": 100, "author":"John Doe","publisher":"Mock Publishing Ltd","publicationDate":"2000-01-01","count":80085}';
+const invalidBody =
+  '{"title":"Test book","description":"Mock data to test createProduct lambda", "author":"John Doe","publisher":"Mock Publishing Ltd","publicationDate":"2000-01-01","count":80085}';
 
 jest.mock("@libs/BookRepository", () => {
   return function () {
     return {
-      getById: () => mockMethod(),
+      create: () => mockMethod(),
     };
   };
 });
 
-describe("getProductsById function", () => {
+describe("createProduct function", () => {
   afterEach(() => {
     jest.restoreAllMocks();
   });
 
-  test("should find product by given id", async () => {
-    const event: TestEvent<null> = {
+  test("should create product and return it in successful response", async () => {
+    const event = {
       ...defaultEvent,
-      body: null,
-      httpMethod: "GET",
+      body: JSON.parse(validBody),
+      rawBody: validBody,
+      httpMethod: "POST",
       resource: "/products",
-      path: "/products/{productId}",
-      pathParameters: {
-        productId: "100",
-      },
+      path: "/products",
     };
     const result = await main(event, defaultContext);
 
     expect(result.statusCode).toBe(200);
-    expect(result.body).toEqual(JSON.stringify(mockData[0]));
+    expect(result.body).toEqual(JSON.stringify(mockData));
   });
 
-  test("should return 404 response if product could not be found", async () => {
-    mockMethod = jest.fn(() => Promise.resolve(undefined));
-    const event: TestEvent<null> = {
+  test("should return 400 response if request data is invalid", async () => {
+    const event = {
       ...defaultEvent,
-      body: null,
-      httpMethod: "GET",
+      body: JSON.parse(invalidBody),
+      rawBody: invalidBody,
+      httpMethod: "POST",
       resource: "/products",
-      path: "/products/{productId}",
-      pathParameters: {
-        productId: "200",
-      },
+      path: "/products",
     };
     const result = await main(event, defaultContext);
 
-    expect(result.statusCode).toBe(404);
-    expect(result.body).toEqual("Product not found");
+    expect(result.statusCode).toBe(400);
+    expect(result.body).toEqual("Event object failed validation");
   });
 
   test("should return 500 response on internal errors", async () => {
@@ -68,15 +67,13 @@ describe("getProductsById function", () => {
     mockMethod = jest.fn(() => {
       throw new Error(errorMessage);
     });
-    const event: TestEvent<null> = {
+    const event = {
       ...defaultEvent,
-      body: null,
-      httpMethod: "GET",
+      body: JSON.parse(validBody),
+      rawBody: validBody,
+      httpMethod: "POST",
       resource: "/products",
-      path: "/products/{productId}",
-      pathParameters: {
-        productId: "200",
-      },
+      path: "/products",
     };
     const result = await main(event, defaultContext);
 
